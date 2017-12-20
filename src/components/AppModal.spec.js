@@ -73,7 +73,7 @@ describe('AppModal', () => {
       modalComponent: 'ModalLogin',
     });
 
-    // Form some reason the dynamic import is triggered
+    // For some reason the dynamic import is triggered
     // twice in tests (but not in production) to compensate
     // for that, we have to wait twice for the next tick
     // (I guess this is a bug in vue-test-utils).
