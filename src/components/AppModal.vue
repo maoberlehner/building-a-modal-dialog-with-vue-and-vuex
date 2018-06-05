@@ -1,5 +1,5 @@
 <template>
-  <div class="c-appModal" @keydown.esc="hideModal">
+  <div class="c-appModal">
     <transition
       name="custom-classes-transition"
       enter-active-class="animated fadeIn"
@@ -37,6 +37,18 @@ export default {
       visible: 'modalVisible',
       modalComponent: 'modalComponent',
     }),
+  },
+  created() {
+    const escapeHandler = (e) => {
+      if (e.key === 'Escape' && this.visible) {
+        this.hideModal();
+      }
+    };
+
+    document.addEventListener('keydown', escapeHandler);
+    this.$once('hook:destroyed', () => {
+      document.removeEventListener('keydown', escapeHandler);
+    });
   },
   methods: {
     ...mapMutations(['hideModal']),

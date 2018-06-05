@@ -57,7 +57,7 @@ describe('AppModal', () => {
     storeMocks.state.modalVisible = true;
     wrapper.update();
 
-    wrapper.trigger('keydown.esc');
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
 
     expect(storeMocks.mutations.hideModal).toBeCalled();
   });
