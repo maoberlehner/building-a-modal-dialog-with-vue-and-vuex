@@ -1,40 +1,18 @@
-// https://eslint.org/docs/user-guide/configuring
-
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
-  parserOptions: {
-    sourceType: 'module'
-  },
   env: {
-    browser: true,
     jest: true,
+    node: true,
   },
-  extends: 'airbnb-base',
-  // required to lint *.vue files
-  plugins: [
-    'html'
+  'extends': [
+    "@avalanche/eslint-config",
+    "plugin:vue/recommended",
   ],
-  // check if imports actually resolve
-  settings: {
-    'import/resolver': {
-      webpack: {
-        config: 'build/webpack.base.conf.js'
-      }
-    }
-  },
-  // add your custom rules here
   rules: {
-    // don't require .vue extension when importing
-    'import/extensions': ['error', 'always', {
-      js: 'never',
-      vue: 'never'
-    }],
-    // allow optionalDependencies
-    'import/no-extraneous-dependencies': ['error', {
-      optionalDependencies: ['test/unit/index.js']
-    }],
-    // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn'
+  },
+  parserOptions: {
+    parser: 'babel-eslint'
   }
 }

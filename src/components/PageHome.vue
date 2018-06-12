@@ -1,6 +1,11 @@
 <template>
   <div class="c-pageHome">
-    <button class="c-pageHome__login" @click="showModal('ModalLogin')">Login</button>
+    <button
+      class="c-pageHome__login"
+      @click="showModal('ModalLogin')"
+    >
+      Login
+    </button>
   </div>
 </template>
 
@@ -8,9 +13,9 @@
 import { mapMutations } from 'vuex';
 
 export default {
-  name: 'PageHome',
+  name: `PageHome`,
   methods: {
-    ...mapMutations(['showModal']),
+    ...mapMutations([`showModal`]),
   },
 };
 </script>

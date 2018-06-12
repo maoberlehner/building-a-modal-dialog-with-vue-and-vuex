@@ -7,11 +7,24 @@
 
     <div>
       <label for ="password">Password</label>
-      <input name="password" type="password">
+      <input
+        name="password"
+        type="password"
+      >
     </div>
 
-    <button class="c-modalLogin__cancel" @click="hideModal">Cancel</button>
-    <button class="c-modalLogin__login" @click="login">Login</button>
+    <button
+      class="c-modalLogin__cancel"
+      @click="hideModal"
+    >
+      Cancel
+    </button>
+    <button
+      class="c-modalLogin__login"
+      @click="login"
+    >
+      Login
+    </button>
   </div>
 </template>
 
@@ -19,10 +32,10 @@
 import { mapMutations } from 'vuex';
 
 export default {
-  name: 'ModalLogin',
+  name: `ModalLogin`,
   methods: {
     ...mapMutations([
-      'hideModal',
+      `hideModal`,
     ]),
     login() {
       // ...

@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <page-home></page-home>
-    <app-modal></app-modal>
+    <page-home/>
+    <app-modal/>
   </div>
 </template>
 
 <script>
-import AppModal from './components/AppModal';
-import PageHome from './components/PageHome';
+import AppModal from './components/AppModal.vue';
+import PageHome from './components/PageHome.vue';
 
 export default {
-  name: 'app',
+  name: `app`,
   components: {
     AppModal,
     PageHome,

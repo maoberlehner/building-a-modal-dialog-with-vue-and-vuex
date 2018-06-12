@@ -5,16 +5,23 @@
       enter-active-class="animated fadeIn"
       leave-active-class="animated fadeOut"
     >
-      <div class="c-appModal__overlay" v-if="visible"></div>
+      <div
+        v-if="visible"
+        class="c-appModal__overlay"
+      />
     </transition>
     <transition
       name="custom-classes-transition"
       enter-active-class="animated fadeInUp"
       leave-active-class="animated fadeOutDown"
     >
-      <div class="c-appModal__content" v-if="visible" @click.self="hideModal">
+      <div
+        v-if="visible"
+        class="c-appModal__content"
+        @click.self="hideModal"
+      >
         <div class="c-appModal__innerContent">
-          <component :is="component"></component>
+          <component :is="component"/>
         </div>
       </div>
     </transition>
@@ -26,7 +33,7 @@ import Vue from 'vue';
 import { mapState, mapMutations } from 'vuex';
 
 export default {
-  name: 'AppModal',
+  name: `AppModal`,
   data() {
     return {
       component: null,
@@ -34,24 +41,9 @@ export default {
   },
   computed: {
     ...mapState({
-      visible: 'modalVisible',
-      modalComponent: 'modalComponent',
+      visible: `modalVisible`,
+      modalComponent: `modalComponent`,
     }),
-  },
-  created() {
-    const escapeHandler = (e) => {
-      if (e.key === 'Escape' && this.visible) {
-        this.hideModal();
-      }
-    };
-
-    document.addEventListener('keydown', escapeHandler);
-    this.$once('hook:destroyed', () => {
-      document.removeEventListener('keydown', escapeHandler);
-    });
-  },
-  methods: {
-    ...mapMutations(['hideModal']),
   },
   watch: {
     modalComponent(componentName) {
@@ -61,6 +53,21 @@ export default {
 
       this.component = componentName;
     },
+  },
+  created() {
+    const escapeHandler = (e) => {
+      if (e.key === `Escape` && this.visible) {
+        this.hideModal();
+      }
+    };
+
+    document.addEventListener(`keydown`, escapeHandler);
+    this.$once(`hook:destroyed`, () => {
+      document.removeEventListener(`keydown`, escapeHandler);
+    });
+  },
+  methods: {
+    ...mapMutations([`hideModal`]),
   },
 };
 </script>

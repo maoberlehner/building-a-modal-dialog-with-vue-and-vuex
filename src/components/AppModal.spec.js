@@ -1,18 +1,19 @@
 import Vuex from 'vuex';
-import { createLocalVue, mount, shallow } from 'vue-test-utils';
+import { createLocalVue, mount, shallowMount } from '@vue/test-utils';
+
 import { __createMocks as createStoreMocks } from '../store';
 
-import AppModal from './AppModal';
+import AppModal from './AppModal.vue';
 
 // Tell Jest to use the mock
 // implementation of the store.
-jest.mock('../store');
+jest.mock(`../store`);
 
 const localVue = createLocalVue();
 
 localVue.use(Vuex);
 
-describe('AppModal', () => {
+describe(`AppModal`, () => {
   let storeMocks;
   let wrapper;
 
@@ -20,49 +21,43 @@ describe('AppModal', () => {
     // Create a fresh store and wrapper
     // instance for every test case.
     storeMocks = createStoreMocks();
-    wrapper = shallow(AppModal, {
+    wrapper = shallowMount(AppModal, {
       store: storeMocks.store,
       localVue,
     });
   });
 
-  test('It should render an overlay and the content when active.', () => {
+  test(`It should render an overlay and the content when active.`, () => {
     storeMocks.state.modalVisible = true;
-    // Re-render the component because we changed the value of
-    // `modalVisible` in the store with the previous line of code.
-    wrapper.update();
 
-    expect(wrapper.contains('.c-appModal__overlay')).toBe(true);
-    expect(wrapper.contains('.c-appModal__content')).toBe(true);
+    expect(wrapper.contains(`.c-appModal__overlay`)).toBe(true);
+    expect(wrapper.contains(`.c-appModal__content`)).toBe(true);
   });
 
-  test('It should not render an overlay and the content when inactive.', () => {
+  test(`It should not render an overlay and the content when inactive.`, () => {
     storeMocks.state.modalVisible = false;
-    wrapper.update();
 
-    expect(wrapper.contains('.c-appModal__overlay')).toBe(false);
-    expect(wrapper.contains('.c-appModal__content')).toBe(false);
+    expect(wrapper.contains(`.c-appModal__overlay`)).toBe(false);
+    expect(wrapper.contains(`.c-appModal__content`)).toBe(false);
   });
 
-  test('It should close the modal when the user clicks on the background.', () => {
+  test(`It should close the modal when the user clicks on the background.`, () => {
     storeMocks.state.modalVisible = true;
-    wrapper.update();
 
-    wrapper.find('.c-appModal__content').trigger('click');
+    wrapper.find(`.c-appModal__content`).trigger(`click`);
 
     expect(storeMocks.mutations.hideModal).toBeCalled();
   });
 
-  test('It should close the modal when the user presses the escape key.', () => {
+  test(`It should close the modal when the user presses the escape key.`, () => {
     storeMocks.state.modalVisible = true;
-    wrapper.update();
 
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    document.dispatchEvent(new KeyboardEvent(`keydown`, { key: `Escape` }));
 
     expect(storeMocks.mutations.hideModal).toBeCalled();
   });
 
-  test('It should render the given component.', async () => {
+  test(`It should render the given component.`, async () => {
     storeMocks.state.modalVisible = true;
 
     wrapper = mount(AppModal, {
@@ -70,7 +65,7 @@ describe('AppModal', () => {
       localVue,
     });
     wrapper.setComputed({
-      modalComponent: 'ModalLogin',
+      modalComponent: `ModalLogin`,
     });
 
     // For some reason the dynamic import is triggered
@@ -80,6 +75,6 @@ describe('AppModal', () => {
     await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.contains('.c-modalLogin')).toBe(true);
+    expect(wrapper.contains(`.c-modalLogin`)).toBe(true);
   });
 });
