@@ -1,0 +1,2 @@
+src/**/*.spec.js linguist-detectable=false
+__mocks__/* linguist-detectable=false
